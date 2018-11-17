@@ -5,7 +5,7 @@ public class Reloj {
     private int horas;
     private int minutos;
     private int segundos;
-    private static char Simbolo=':';
+    private static char simbolo=':';
     private static int numeroRelojes=0;
 
     public Reloj(){
@@ -22,7 +22,7 @@ public class Reloj {
 
 
     public static void  cambiaSeparador(char c){
-        Simbolo=c;
+        simbolo=c;
 
 
     }
@@ -41,9 +41,9 @@ public class Reloj {
     public  String devuelveHora(){
         String salida="";
         salida+=(this.horas<10?"0":"")+horas;
-        salida+=Simbolo;
+        salida+=simbolo;
         salida+=(this.minutos<10?"0":"")+minutos;
-        salida+=Simbolo;
+        salida+=simbolo;
         salida+=(this.segundos<10?"0":"")+segundos;
         return salida;
 
@@ -68,14 +68,18 @@ public class Reloj {
 
     }
 
-    public void sumaTiempo(int SumaHoras, int SumaMinutos, int SumaSegundos){
-        int totalSegundos=SumaSegundos+segundos;
-        this.segundos=totalSegundos%60;
-        int MinutosSobrantes=(this.segundos+SumaSegundos)/60;
-        int totalMinutos=(SumaMinutos+minutos+MinutosSobrantes);
+    public void sumaTiempo(int sumaHoras, int sumaMinutos, int sumaSegundos){
+        int totalSegundos=sumaSegundos+segundos;
+        if (totalSegundos>59){
+            segundos=totalSegundos%60;
+        } else {
+            this.segundos=totalSegundos;
+        }
+        int minutosSobrantes=totalSegundos/60;
+        int totalMinutos=(sumaMinutos+minutos+minutosSobrantes);
         this.minutos=totalMinutos%60;
-        int HorasSobrantes=totalMinutos/60;
-        int totalHoras=SumaHoras+horas+HorasSobrantes;
+        int horasSobrantes=totalMinutos/60;
+        int totalHoras=sumaHoras+horas+horasSobrantes;
         this.horas=totalHoras%24;
 
 
